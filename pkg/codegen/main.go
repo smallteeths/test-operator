@@ -44,12 +44,12 @@ func main() {
 		},
 	})
 
-	ackClusterConfig := newCRD(&v12.ACKClusterConfig{}, func(c crd.CRD) crd.CRD {
+	foo := newCRD(&v12.Foo{}, func(c crd.CRD) crd.CRD {
 		c.ShortNames = []string{"ackcc"}
 		return c
 	})
 
-	obj, err := ackClusterConfig.ToCustomResourceDefinition()
+	obj, err := foo.ToCustomResourceDefinition()
 	if err != nil {
 		panic(err)
 	}
@@ -58,16 +58,16 @@ func main() {
 		"helm.sh/resource-policy": "keep",
 	}
 
-	ackCCYaml, err := yaml.Export(&obj)
+	fooYaml, err := yaml.Export(&obj)
 	if err != nil {
 		panic(err)
 	}
 
-	if err := saveCRDYaml("ackclusterconfig", string(ackCCYaml)); err != nil {
+	if err := saveCRDYaml("foo", string(fooYaml)); err != nil {
 		panic(err)
 	}
 
-	fmt.Printf("obj yaml: %s", ackCCYaml)
+	fmt.Printf("obj yaml: %s", fooYaml)
 }
 
 func newCRD(obj interface{}, customize func(crd.CRD) crd.CRD) crd.CRD {
