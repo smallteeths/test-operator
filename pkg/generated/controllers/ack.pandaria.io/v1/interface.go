@@ -30,7 +30,7 @@ func init() {
 }
 
 type Interface interface {
-	ACKClusterConfig() ACKClusterConfigController
+	Foo() FooController
 }
 
 func New(controllerFactory controller.SharedControllerFactory) Interface {
@@ -43,6 +43,6 @@ type version struct {
 	controllerFactory controller.SharedControllerFactory
 }
 
-func (c *version) ACKClusterConfig() ACKClusterConfigController {
-	return NewACKClusterConfigController(schema.GroupVersionKind{Group: "ack.pandaria.io", Version: "v1", Kind: "ACKClusterConfig"}, "ackclusterconfigs", true, c.controllerFactory)
+func (c *version) Foo() FooController {
+	return NewFooController(schema.GroupVersionKind{Group: "ack.pandaria.io", Version: "v1", Kind: "Foo"}, "foos", true, c.controllerFactory)
 }
